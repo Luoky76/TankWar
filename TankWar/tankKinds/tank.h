@@ -16,7 +16,7 @@ public:
     int getIdentity();
     int getForward();
     void tankMove(int toPosX,int toPosY,double acce); //游戏界面直接通过此函数控制坦克移动，acce为坦克加速比
-    void Shoot();   //尝试发射子弹
+    void shoot();   //尝试发射子弹
     void resetCanShoot();   //调用后坦克可以再次发射子弹
 
 protected:

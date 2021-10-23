@@ -29,7 +29,7 @@ void Tank::tankMove(int toPosX,int toPosY,double acce)   //无条件移动坦克
     QTimer::singleShot(moveTime/acce,[=](){canMove = true;});
 }
 
-void Tank::Shoot()
+void Tank::shoot()
 {
     if (canShoot)
     {
