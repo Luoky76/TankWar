@@ -1,0 +1,108 @@
+#include "mybutton.h"
+
+MyButton::MyButton(QString normalImg,QString pressImg,QWidget *parent):QPushButton(parent)
+{
+    normalImgPath = normalImg;
+    if (pressImg=="") pressImgPath = normalImgPath;
+    else pressImgPath = pressImg;
+
+    QPixmap pixmap;
+    bool ret = pixmap.load(normalImgPath);  //判断是否能正常加载图片
+    if (!ret)
+    {
+        qDebug()<<normalImg<<"加载图片失败 in myButton";
+    }
+    this->setFixedSize(pixmap.width(),pixmap.height()); //根据图片尺寸设置固定窗口尺寸
+    this->setStyleSheet("QPushButton{border:0px;}");    //设置不规则的图片样式表 边框0像素
+    this->setIcon(pixmap);
+    this->setIconSize(QSize(pixmap.width(),pixmap.height()));
+
+    soundEffect = new QSoundEffect(this);
+
+    connect(this,&MyButton::clicked,this,&MyButton::zoom);   //点击按钮来执行跳动特效
+    connect(this,&MyButton::clicked,this,&MyButton::onPlaySound);   //点击按钮时播放音效
+
+    this->setCursor(Qt::PointingHandCursor);    //设置鼠标样式
+}
+
+void MyButton::zoomDown(int dy)
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(this,"geometry",this);   //创建动画对象
+    animation->setDuration(200);    //设置时间间隔
+    animation->setStartValue(QRect(this->x(),this->y(),this->width(),this->width()));   //设置起始位置
+    animation->setEndValue(QRect(this->x(),this->y()+dy,this->width(),this->width()));  //设置结束位置，按钮将变到该位置，但按钮的x和y并不改变
+    animation->setEasingCurve(QEasingCurve::OutBounce); //设置缓和曲线，QEasingCurve::OutBounce为弹跳效果
+    animation->start(); //开始执行动画
+}
+
+void MyButton::zoomUp(int dy)
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(this,"geometry",this);   //创建动画对象
+    animation->setDuration(200);    //设置时间间隔
+    animation->setStartValue(QRect(this->x(),this->y()+dy,this->width(),this->width()));   //设置起始位置
+    animation->setEndValue(QRect(this->x(),this->y(),this->width(),this->width()));  //设置结束位置，按钮将变到该位置
+    animation->setEasingCurve(QEasingCurve::OutBounce); //设置缓和曲线，QEasingCurve::OutBounce为弹跳效果
+    animation->start(); //开始执行动画
+
+    connect(animation,&QPropertyAnimation::finished,[=](){  //动画结束后重新连接按钮和特效
+        connect(this,&MyButton::clicked,this,&MyButton::zoom);
+    });
+}
+
+void MyButton::zoom()   //此函数已解决了连续按按钮会导致的按钮偏移bug
+{
+    disconnect(this,&MyButton::clicked,this,&MyButton::zoom);   //断开连接，防止多次触发
+    int dy = this->height()*0.15;   //垂直跳跃距离
+    zoomDown(dy);     //向下跳跃
+    zoomUp(dy);    //向上跳跃
+}
+
+void MyButton::enterEvent(QEnterEvent *ev)  //接收鼠标进入事件来切换按钮图标
+{
+    QPixmap pixmap;
+    bool ret = pixmap.load(pressImgPath);
+    if (!ret)
+    {
+        qDebug()<<pressImgPath<<"加载图片失败 mousePressEvent";
+        return QPushButton::enterEvent(ev);
+    }
+    this->setFixedSize(pixmap.width(),pixmap.height()); //根据图片尺寸设置固定窗口尺寸
+    this->setStyleSheet("QPushButton{border:0px;}");    //设置不规则的图片样式表 边框0像素
+    this->setIcon(pixmap);
+    this->setIconSize(QSize(pixmap.width(),pixmap.height()));
+    QPushButton::enterEvent(ev);
+
+    emit mouseEntered();
+}
+
+void MyButton::leaveEvent(QEvent *ev)  //接收鼠标离开事件来切换按钮图标
+{
+    QPixmap pixmap;
+    bool ret = pixmap.load(normalImgPath);
+    if (!ret)
+    {
+        qDebug()<<normalImgPath<<"加载图片失败 mousePressEvent";
+        return QPushButton::leaveEvent(ev);
+    }
+    this->setFixedSize(pixmap.width(),pixmap.height()); //根据图片尺寸设置固定窗口尺寸
+    this->setStyleSheet("QPushButton{border:0px;}");    //设置不规则的图片样式表 边框0像素
+    this->setIcon(pixmap);
+    this->setIconSize(QSize(pixmap.width(),pixmap.height()));
+    QPushButton::leaveEvent(ev);
+
+    emit mouseLeft();
+}
+
+void MyButton::setSound(QString soundPath)
+{
+    this->soundPath = soundPath;
+}
+
+void MyButton::onPlaySound()
+{
+    if (soundPath == nullptr) return;   //没有音效文件直接返回
+    soundEffect->setSource(QUrl::fromLocalFile(soundPath));
+    //soundEffect->setLoopCount(QSoundEffect::Infinite);    //设置为循环播放
+    soundEffect->setVolume(1.0);    //设置音量
+    soundEffect->play();
+}
