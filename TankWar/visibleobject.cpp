@@ -47,6 +47,15 @@ bool VisibleObject::isCrashed(VisibleObject* obj2)
     return true;
 }
 
+bool VisibleObject::isCrashed(QRect obj2)
+{
+    if (this->getPosX()+this->width()<=obj2.x()) return false;
+    if (obj2.x()+obj2.width()<=this->getPosX()) return false;
+    if (this->getPosY()+this->height()<=obj2.y()) return false;
+    if (obj2.y()+obj2.height()<=this->getPosY()) return false;
+    return true;
+}
+
 void VisibleObject::paintObj(int dx, int dy, QPainter *painter)
 {
     QPixmap pixmap(iconPath);

@@ -9,6 +9,13 @@ class Bullet : public VisibleObject
 {
     Q_OBJECT
 public:
+    const static int bulletWidth = 30;  //子弹的默认宽高
+    const static int bulletHeight = 30;
+    const static int up = 0;    //子弹的不同朝向
+    const static int right = 1;
+    const static int down = 2;
+    const static int left = 3;
+
     Bullet(int _forward,int _identity,int _posX,int _posY,QObject *parent = nullptr);
     void bulletMove(int toPosX,int toPosY);  //无条件移动子弹
     void blast();   //无条件引爆子弹

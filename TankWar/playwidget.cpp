@@ -1,5 +1,4 @@
 #include "playwidget.h"
-#include "gameparameter.h"
 #include "tankKinds/friendtank.h"
 #include "tankKinds/enemytank.h"
 #include "tankKinds/heavytank.h"
@@ -27,8 +26,8 @@ PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QWi
     this->setWindowTitle("Tanks War");  //设置标题
 
     //计算将游戏主界面居中放置时左上角点的坐标
-    upLeftX = (this->width()-GameParameter::column*GameBlock::blockWidth)/2;
-    upLeftY = (this->height()-GameParameter::row*GameBlock::blockHeight)/2;
+    upLeftX = (this->width()-MapDataBase::column*GameBlock::blockWidth)/2;
+    upLeftY = (this->height()-MapDataBase::row*GameBlock::blockHeight)/2;
 
     repaintTimer = new QTimer();
     repaintTimer->start(5);    //每5毫秒重绘地图
@@ -39,13 +38,7 @@ PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QWi
     numOfKey = 0;
     timer = new QTimer();
 
-    //创建玩家的坦克
-    PlayerTank* myTank = MapStruct::getInstance()->creatPlayerTank();
-    connect(timer,&QTimer::timeout,[=](){   //计时器一到就发送当前按住的按键给自己的坦克
-       myTank->keyPressToMove(currentKey);
-    });
-    connect(this,&PlayWidget::pressToShoot,myTank,&PlayerTank::shoot);
-    connect(myTank,&PlayerTank::tankShot,MapStruct::getInstance(),&MapStruct::newBullet);
+    creatPlayerTank();
 }
 
 void PlayWidget::closeEvent(QCloseEvent *)
@@ -127,4 +120,15 @@ void PlayWidget::keyReleaseEvent(QKeyEvent *event)
             if (numOfKey == 0) timer->stop();   //所有方向键都松开后停止时钟脉冲
         }
     }
+}
+
+void PlayWidget::creatPlayerTank()
+{
+    //创建玩家的坦克
+    PlayerTank* myTank = MapStruct::getInstance()->creatPlayerTank();
+    connect(timer,&QTimer::timeout,[=](){   //计时器一到就发送当前按住的按键给自己的坦克
+       myTank->keyPressToMove(currentKey);
+    });
+    connect(this,&PlayWidget::pressToShoot,myTank,&PlayerTank::shoot);
+    connect(myTank,&PlayerTank::tankShot,MapStruct::getInstance(),&MapStruct::newBullet);
 }

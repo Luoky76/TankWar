@@ -19,7 +19,6 @@ SOURCES += \
     blockKinds/wall.cpp \
     blockKinds/water.cpp \
     bulletKind/bullet.cpp \
-    gameparameter.cpp \
     main.cpp \
     mapStructAndData/mapstruct.cpp \
     mapStructAndData/mapdatabase.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     blockKinds/wall.h \
     blockKinds/water.h \
     bulletKind/bullet.h \
-    gameparameter.h \
     mapStructAndData/mapstruct.h \
     mapStructAndData/mapdatabase.h \
     mybutton.h \

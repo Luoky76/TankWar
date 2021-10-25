@@ -1,6 +1,5 @@
 #ifndef GAMEBLOCK_H
 #define GAMEBLOCK_H
-#include "gameparameter.h"
 #include "visibleobject.h"
 #include <QTimer>
 #include <QDebug>
@@ -16,7 +15,7 @@ public:
     const static int water = 5;
     const static int redwall = 6;
 
-    const static int blockWidth = 30;   //每个地图块的宽高，单位像素
+    const static int blockWidth = 30;   //地图块的默认宽高，单位像素
     const static int blockHeight = 30;
     const static int baseWidth = 60;    //基地块的宽高
     const static int baseHeight = 60;

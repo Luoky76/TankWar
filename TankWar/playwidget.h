@@ -6,7 +6,6 @@
 #include "blockKinds/gameblock.h"
 #include "bulletKind/bullet.h"
 #include "tankKinds/tank.h"
-#include "gameparameter.h"
 #include <QWidget>
 #include <QList>
 #include <QDebug>
@@ -44,6 +43,7 @@ private:
     void paintEvent(QPaintEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+    void creatPlayerTank();
 
 signals:
     void pressToShoot();    //玩家按下了发射按键

@@ -1,7 +1,6 @@
 #ifndef MAPSTRUCT_H
 #define MAPSTRUCT_H
 
-#include "gameparameter.h"
 #include "blockKinds/gameblock.h"
 #include "bulletKind/bullet.h"
 #include "tankKinds/tank.h"
@@ -32,7 +31,6 @@ public:
     QPoint getRandomBornPos();  //获取随机出生点
 
     PlayerTank* creatPlayerTank(); //创建玩家坦克
-    void clearAll();    //清除所有地图块、坦克、子弹
     void setDifficulty(int difficultyLevel);    //设置游戏难度
     void setGameLevel(int gameLevel);   //设置游戏关卡级别，设置后重置地图
     void resetGmp();    //根据当前关卡用游戏地图数据加载游戏地图及当前关卡的游戏地图数据
@@ -56,6 +54,10 @@ private:
     int gameLevel = 1;  //当前关卡等级
     QList <QList<int> > singleMp;   //当前关卡的游戏地图数据
     MapDataBase mp; //游戏地图数据（所有关卡）
+
+    void clearAll();    //清除所有地图块、坦克、子弹
+    void coveredBlock(QRect obj,int &row1,int &row2,int &column1,int &column2); //计算可见物件所覆盖的行列
+
 signals:
 
 };

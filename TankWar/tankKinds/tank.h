@@ -1,7 +1,6 @@
 #ifndef TANK_H
 #define TANK_H
 
-#include "gameparameter.h"
 #include "visibleobject.h"
 #include "bulletKind/bullet.h"
 #include <QTimer>
@@ -11,6 +10,16 @@ class Tank : public VisibleObject
 {
     Q_OBJECT
 public:
+    const static int tankWidth = 60;    //坦克的宽高
+    const static int tankHeight = 60;
+    const static int friendTank = 0;    //坦克不同敌我关系，己方、敌方、中立方
+    const static int enemyTank = 1;
+    const static int individualTank = 3;
+    const static int up = 0;    //坦克的不同朝向
+    const static int right = 1;
+    const static int down = 2;
+    const static int left = 3;
+
     //参数：难度 坦克所在X坐标（相对窗口） 坦克所在Y坐标（相对窗口） 父节点
     Tank(int _posX,int _posY,QObject *parent = nullptr);
     int getIdentity();

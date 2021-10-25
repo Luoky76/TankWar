@@ -17,6 +17,7 @@ public:
     int getPosY();
     QString getIconPath();
     bool isCrashed(VisibleObject* obj2); //判断两个物件是否相交
+    bool isCrashed(QRect obj2);
     void paintObj(int dx,int dy,QPainter *painter);   //绘制该物件，dx dy 为开始绘制的左上角位置
     void paintObj(int dx,int dy,QString iconPath,QPainter *painter);
 

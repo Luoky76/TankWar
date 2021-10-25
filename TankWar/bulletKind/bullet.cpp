@@ -8,8 +8,8 @@
 Bullet::Bullet(int _forward,int _identity,int _posX,int _posY,QObject *parent):VisibleObject(parent)
 {
     //设置子弹的尺寸
-    objWidth = GameParameter::bulletWidth;
-    objHeight = GameParameter::bulletHeight;
+    objWidth = bulletWidth;
+    objHeight = bulletHeight;
     iconPath = ":/Resource/img/fire/friendMissile.png";
     forward = _forward;
     identity = _identity;
@@ -24,10 +24,10 @@ Bullet::Bullet(int _forward,int _identity,int _posX,int _posY,QObject *parent):V
     connect(timer,&QTimer::timeout,[=](){   //每当计时到了就发送前进请求信号
         timer->stop();  //等移动响应结束后再继续计时
         switch (forward) {
-            case GameParameter::up: emit queryMove(this,posX,posY-unitDis); break;
-            case GameParameter::right: emit queryMove(this,posX+unitDis,posY); break;
-            case GameParameter::down: emit queryMove(this,posX,posY+unitDis); break;
-            case GameParameter::left: emit queryMove(this,posX-unitDis,posY); break;
+            case Bullet::up: emit queryMove(this,posX,posY-unitDis); break;
+            case Bullet::right: emit queryMove(this,posX+unitDis,posY); break;
+            case Bullet::down: emit queryMove(this,posX,posY+unitDis); break;
+            case Bullet::left: emit queryMove(this,posX-unitDis,posY); break;
             default: break;
         }
     });

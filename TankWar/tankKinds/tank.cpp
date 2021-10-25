@@ -1,6 +1,5 @@
 #include "tank.h"
 #include "bulletKind/bullet.h"
-#include "gameparameter.h"
 #include <QRandomGenerator>
 #include <QTimer>
 #include <QKeyEvent>
@@ -12,11 +11,11 @@ Tank::Tank(int _posX,int _posY,QObject *parent):VisibleObject(parent)
     posY = _posY;
     unitDis = 10; //设置坦克移动的单位距离
     moveTime = 30;  //设置坦克移动的基础冷却时间
-    forward = GameParameter::up;
+    forward = Tank::up;
     canMove = false;    //等出生完成后再允许移动
     canShoot = false;    //等出生完成后再允许发射子弹，一辆坦克同时只能有一枚子弹在地图上
-    objWidth = GameParameter::tankWidth;
-    objHeight = GameParameter::tankHeight;
+    objWidth = tankWidth;
+    objHeight = tankHeight;
     bornAnimation();
 }
 
@@ -34,17 +33,17 @@ void Tank::shoot()
     if (canShoot)
     {
         switch (forward) {   //根据坦克位置和朝向决定子弹的位置
-            case GameParameter::up:
-                emit tankShot(this,forward,identity,posX+(width()-GameParameter::bulletWidth)/2,posY-GameParameter::bulletHeight);
+            case Tank::up:
+                emit tankShot(this,forward,identity,posX+(width()-Bullet::bulletWidth)/2,posY-Bullet::bulletHeight);
                 break;
-            case GameParameter::right:
-                emit tankShot(this,forward,identity,posX+width(),posY+(height()-GameParameter::bulletHeight)/2);
+            case Tank::right:
+                emit tankShot(this,forward,identity,posX+width(),posY+(height()-Bullet::bulletHeight)/2);
                 break;
-            case GameParameter::down:
-                emit tankShot(this,forward,identity,posX+(width()-GameParameter::bulletWidth)/2,posY+height());
+            case Tank::down:
+                emit tankShot(this,forward,identity,posX+(width()-Bullet::bulletWidth)/2,posY+height());
                 break;
-            case GameParameter::left:
-                emit tankShot(this,forward,identity,posX-GameParameter::bulletWidth,posY+(height()-GameParameter::bulletHeight)/2);
+            case Tank::left:
+                emit tankShot(this,forward,identity,posX-Bullet::bulletWidth,posY+(height()-Bullet::bulletHeight)/2);
                 break;
             default:
                 break;
@@ -75,10 +74,10 @@ void Tank::bornAnimation()
 void Tank::updateTankPixmap()
 {
     switch (forward) {
-        case GameParameter::up: iconPath = pathU; break;
-        case GameParameter::right: iconPath = pathR; break;
-        case GameParameter::down: iconPath = pathD; break;
-        case GameParameter::left: iconPath = pathL; break;
+        case Tank::up: iconPath = pathU; break;
+        case Tank::right: iconPath = pathR; break;
+        case Tank::down: iconPath = pathD; break;
+        case Tank::left: iconPath = pathL; break;
         default: break;
     }
 }

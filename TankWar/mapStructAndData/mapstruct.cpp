@@ -6,6 +6,8 @@ MapStruct::MapStruct(QList<QList<GameBlock *> > *gameMap,QList<Tank *> *tanks,QL
     this->gmp = gameMap;
     this->tanks = tanks;
     this->bullets = bullets;
+    this->p1BornPos = QPoint(9*GameBlock::blockWidth,24*GameBlock::blockHeight);
+    this->p2BornPos = QPoint(13*GameBlock::blockWidth,24*GameBlock::blockHeight);
 }
 
 MapStruct *MapStruct::getInstance(QList< QList<GameBlock *> > *gameMap,QList<Tank *> *tanks,QList<Bullet *> *bullets,QObject *parent)
@@ -66,7 +68,7 @@ QPoint MapStruct::getRandomBornPos()    //可能出现在已经有坦克的位�
         randomcolum = randomNum%blockWidth; //随机位置所在列
         flag &= gmp->at(randomRow).at(randomcolum)->getCanTankThrough();
 
-        VisibleObject obj(randomcolum*GameBlock::blockWidth,randomRow*GameBlock::blockHeight,GameParameter::tankWidth,GameParameter::tankHeight);  //创建一个临时块，用于判断是否与现有块冲突
+        VisibleObject obj(randomcolum*GameBlock::blockWidth,randomRow*GameBlock::blockHeight,Tank::tankWidth,Tank::tankHeight);  //创建一个临时块，用于判断是否与现有块冲突
         for (Tank* i:(*tanks))
         {
             flag &= i->isCrashed(&obj);
@@ -78,7 +80,7 @@ QPoint MapStruct::getRandomBornPos()    //可能出现在已经有坦克的位�
 
 PlayerTank *MapStruct::creatPlayerTank()
 {
-    PlayerTank* myTank = new PlayerTank(GameParameter::myTankPosX,GameParameter::myTankPosY,this);
+    PlayerTank* myTank = new PlayerTank(p1BornPos.x(),p1BornPos.y(),this);
     tanks->append(myTank);
     connect(myTank,&PlayerTank::queryMove,this,&MapStruct::respondTankMove); //连接坦克的移动请求和游戏窗口的请求响应
     return myTank;
@@ -100,6 +102,16 @@ void MapStruct::clearAll()
     basePos.setY(-1);
 }
 
+void MapStruct::coveredBlock(QRect obj, int &row1, int &row2, int &column1, int &column2)
+{
+    row1 = obj.y()/GameBlock::blockHeight;
+    column1 = obj.x()/GameBlock::blockWidth;
+    row2 = (obj.y()+obj.height())/GameBlock::blockHeight;
+    if ((obj.y()+obj.height())%GameBlock::blockHeight == 0) row2--;
+    column2 = (obj.x()+obj.width())/GameBlock::blockWidth;
+    if ((obj.x()+obj.width())%GameBlock::blockWidth == 0) column2--;
+}
+
 void MapStruct::setDifficulty(int difficultyLevel)
 {
     this->difficultyLevel = difficultyLevel;
@@ -119,11 +131,11 @@ void MapStruct::resetGmp()
     QVector <GameBlock *> v;  //v为单行地图
     int currentX = 0;  //用于暂时记录当前方块的位置
     int currentY = 0;
-    for (int i=0;i<GameParameter::row;++i)
+    for (int i=0;i<MapDataBase::row;++i)
     {
         v.clear();
         GameBlock *gameBlock;
-        for (int j=0;j<GameParameter::column;++j)
+        for (int j=0;j<MapDataBase::column;++j)
         {
             //创建地图块，同时对基地进行特殊处理，只保留一个基地块
             if (singleMp[i][j]!=GameBlock::base)
@@ -156,17 +168,12 @@ void MapStruct::resetGmp()
 
 void MapStruct::respondTankMove(Tank *tank, int toPosX, int toPosY)
 {
-    if (toPosX+tank->width()>GameParameter::column*GameBlock::blockWidth || toPosX<0) return;   //超出边界
-    if (toPosY+tank->height()>GameParameter::row*GameBlock::blockHeight || toPosY<0) return;
+    if (toPosX+tank->width()>MapDataBase::column*GameBlock::blockWidth || toPosX<0) return;   //超出边界
+    if (toPosY+tank->height()>MapDataBase::row*GameBlock::blockHeight || toPosY<0) return;
 
     //计算坦克四个角所在方块
     int row1,row2,column1,column2;
-    row1 = toPosY/GameBlock::blockHeight;
-    column1 = toPosX/GameBlock::blockWidth;
-    row2 = (toPosY+tank->height())/GameBlock::blockHeight;
-    if ((toPosY+tank->height())%GameBlock::blockHeight == 0) row2--;
-    column2 = (toPosX+tank->width())/GameBlock::blockWidth;
-    if ((toPosX+tank->width())%GameBlock::blockWidth == 0) column2--;
+    coveredBlock(QRect(toPosX,toPosY,tank->width(),tank->height()),row1,row2,column1,column2);
 
     //坦克所在方块只要有一个不可通行就无法移动坦克
     for (int i=row1;i<=row2;++i)
@@ -196,18 +203,13 @@ void MapStruct::respondBulletMove(Bullet *bullet, int toPosX, int toPosY)
 
     bool alive = true; //表示子弹是否还存留
     //判断是否超出边界
-    if (toPosX+bullet->width()>GameParameter::column*GameBlock::blockWidth || toPosX<0) alive = false;
-    if (toPosY+bullet->height()>GameParameter::row*GameBlock::blockHeight || toPosY<0) alive = false;
+    if (toPosX+bullet->width()>MapDataBase::column*GameBlock::blockWidth || toPosX<0) alive = false;
+    if (toPosY+bullet->height()>MapDataBase::row*GameBlock::blockHeight || toPosY<0) alive = false;
     if (!alive) {bullet->blast(); return;}
 
     //计算子弹四个角所在方块
     int row1,row2,column1,column2;
-    row1 = toPosY/GameBlock::blockHeight;
-    column1 = toPosX/GameBlock::blockWidth;
-    row2 = (toPosY+bullet->height())/GameBlock::blockHeight;
-    if ((toPosY+bullet->height())%GameBlock::blockHeight == 0) row2--;
-    column2 = (toPosX+bullet->width())/GameBlock::blockWidth;
-    if ((toPosX+bullet->width())%GameBlock::blockWidth == 0) column2--;
+    coveredBlock(QRect(toPosX,toPosY,bullet->width(),bullet->height()),row1,row2,column1,column2);
 
     //所在方块只要有一个不可通行就引爆子弹
     for (int i=row1;i<=row2;++i)

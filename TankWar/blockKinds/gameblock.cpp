@@ -1,5 +1,4 @@
 #include "gameblock.h"
-#include "gameparameter.h"
 #include "blockKinds/base.h"
 #include "blockKinds/floor.h"
 #include "blockKinds/grass.h"

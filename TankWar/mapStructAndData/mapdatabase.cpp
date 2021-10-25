@@ -7,7 +7,7 @@
 
 MapDataBase::MapDataBase(QObject *parent):QObject(parent)
 {
-    int totLevel = GameParameter::totLevel;
+    int totLevel = MapDataBase::totLevel;
     QVector <int> v;    //用于读入单行数据
     for (int i=1;i<=totLevel;++i)
     {

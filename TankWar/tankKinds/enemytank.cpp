@@ -6,7 +6,7 @@
 EnemyTank::EnemyTank(int _difficultyLevel,int _posX,int _posY,QObject *parent)
     :Tank(_posX,_posY,parent)
 {
-    identity = GameParameter::enemyTank;
+    identity = Tank::enemyTank;
     moveTime/=_difficultyLevel;  //敌方坦克的移动速度统一先加快难度倍
 }
 
