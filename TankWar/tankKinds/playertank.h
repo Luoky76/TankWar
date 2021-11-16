@@ -9,6 +9,7 @@ class PlayerTank : public Tank
 public:
     PlayerTank(int _posX,int _posY,QObject *parent = nullptr);
     void keyPressToMove(int key);   //接收按下的方向键
+    void setTankName(QString newName);
 };
 
 #endif // PLAYERTANK_H

@@ -29,3 +29,8 @@ void PlayerTank::keyPressToMove(int key)
     }
     tryToMove(newForward);
 }
+
+void PlayerTank::setTankName(QString newName)
+{
+    tankName = newName;
+}

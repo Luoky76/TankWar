@@ -17,19 +17,21 @@ class PlayWidget : public QWidget
 {
     Q_OBJECT
 public:
-    static PlayWidget* getInstance(int _playMode,int _soundLevel,int _difficultyLevel,QWidget *parent = nullptr);
+    static PlayWidget* getInstance(int _playMode,int _soundLevel,int _difficultyLevel,QString playerName,QWidget *parent = nullptr);
     static PlayWidget* getInstance();
     void startGame();
+    QString getPlayerName();
     ~PlayWidget();
 
 private:
-    explicit PlayWidget(int _playMode,int _soundLevel,int _difficultyLevel,QWidget *parent = nullptr);
+    explicit PlayWidget(int _playMode,int _soundLevel,int _difficultyLevel,QString playerName,QWidget *parent = nullptr);
     static PlayWidget* instance;
     void closeEvent(QCloseEvent *event) override;
     int playMode;   //单双人模式
     int soundLevel; //音量大小
     int difficultyLevel;    //难度
     int gameLevel;  //当前关卡等级
+    QString playerName; //玩家姓名
 
     int upLeftX;    //将游戏主界面居中放置时左上角点的坐标
     int upLeftY;

@@ -104,6 +104,7 @@ PlayerTank *MapStruct::creatPlayerTank()
         bornPos = getRandomBornPos(Tank::tankWidth,Tank::tankHeight);
     }
     PlayerTank* myTank = new PlayerTank(bornPos.x(),bornPos.y(),this);
+    myTank->setTankName(PlayWidget::getInstance()->getPlayerName());    //设置坦克名称为玩家名
     tanks->append(myTank);
     connect(myTank,&PlayerTank::queryMove,this,&MapStruct::respondTankMove); //连接坦克的移动请求和游戏地图的请求响应
     connect(myTank,&PlayerTank::tankDestroyed,this,[=](){

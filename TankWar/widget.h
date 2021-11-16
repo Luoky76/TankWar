@@ -4,6 +4,8 @@
 #include "playwidget.h"
 #include "spinslider.h"
 #include <QWidget>
+#include <QLineEdit>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -25,6 +27,8 @@ private:
     MyButton *btn_back = nullptr;     //返回按钮
     SpinSlider *soundSlider;          //音量拖条
     SpinSlider *hardSlider;           //难度拖条
+    QLineEdit *playerName;            //玩家昵称编辑栏
+    QLabel *playerNamePix;            //玩家姓名提示图片
     PlayWidget *playWidget = nullptr; //按下开始后跳转的游戏界面
     void paintEvent(QPaintEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;

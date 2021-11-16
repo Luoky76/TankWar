@@ -342,6 +342,7 @@ release/qrc_res.cpp: ../res.qrc \
 		../Resource/img/other/select.png \
 		../Resource/img/other/gameStart.png \
 		../Resource/img/other/sound.png \
+		../Resource/img/other/playerName.png \
 		../Resource/img/other/backBtn.png \
 		../Resource/img/other/over.png \
 		../Resource/img/other/born2.png \
@@ -1539,6 +1540,7 @@ release/moc_artificial.cpp: ../TankWar/gameExecutor/artificial.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QList \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRandomGenerator \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		release/moc_predefs.h \
 		../../../../Qt/6.2.0/mingw81_64/bin/moc.exe
 	D:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include D:/test_qc/Code/TankWar/build-TankWar-Desktop_Qt_6_2_0_MinGW_64_bit-Release/release/moc_predefs.h -ID:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -ID:/test_qc/Code/TankWar/TankWar -ID:/Qt/6.2.0/mingw81_64/include -ID:/Qt/6.2.0/mingw81_64/include/QtMultimedia -ID:/Qt/6.2.0/mingw81_64/include/QtWidgets -ID:/Qt/6.2.0/mingw81_64/include/QtGui -ID:/Qt/6.2.0/mingw81_64/include/QtNetwork -ID:/Qt/6.2.0/mingw81_64/include/QtCore -I. -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -ID:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ..\TankWar\gameExecutor\artificial.h -o release\moc_artificial.cpp
@@ -1673,6 +1675,7 @@ release/moc_gamestatepusher.cpp: ../TankWar/gameExecutor/gamestatepusher.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRandomGenerator \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
 		../TankWar/gameExecutor/artificial.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		release/moc_predefs.h \
 		../../../../Qt/6.2.0/mingw81_64/bin/moc.exe
 	D:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include D:/test_qc/Code/TankWar/build-TankWar-Desktop_Qt_6_2_0_MinGW_64_bit-Release/release/moc_predefs.h -ID:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -ID:/test_qc/Code/TankWar/TankWar -ID:/Qt/6.2.0/mingw81_64/include -ID:/Qt/6.2.0/mingw81_64/include/QtMultimedia -ID:/Qt/6.2.0/mingw81_64/include/QtWidgets -ID:/Qt/6.2.0/mingw81_64/include/QtGui -ID:/Qt/6.2.0/mingw81_64/include/QtNetwork -ID:/Qt/6.2.0/mingw81_64/include/QtCore -I. -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -ID:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ..\TankWar\gameExecutor\gamestatepusher.h -o release\moc_gamestatepusher.cpp
@@ -2299,6 +2302,7 @@ release/moc_playwidget.cpp: ../TankWar/playwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRandomGenerator \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
 		../TankWar/gameExecutor/artificial.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -2319,7 +2323,6 @@ release/moc_playwidget.cpp: ../TankWar/playwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QSize \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
@@ -3586,6 +3589,15 @@ release/moc_widget.cpp: ../TankWar/widget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
 		../TankWar/spinslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
 		release/moc_predefs.h \
 		../../../../Qt/6.2.0/mingw81_64/bin/moc.exe
 	D:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include D:/test_qc/Code/TankWar/build-TankWar-Desktop_Qt_6_2_0_MinGW_64_bit-Release/release/moc_predefs.h -ID:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -ID:/test_qc/Code/TankWar/TankWar -ID:/Qt/6.2.0/mingw81_64/include -ID:/Qt/6.2.0/mingw81_64/include/QtMultimedia -ID:/Qt/6.2.0/mingw81_64/include/QtWidgets -ID:/Qt/6.2.0/mingw81_64/include/QtGui -ID:/Qt/6.2.0/mingw81_64/include/QtNetwork -ID:/Qt/6.2.0/mingw81_64/include/QtCore -I. -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -ID:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -ID:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ..\TankWar\widget.h -o release\moc_widget.cpp
@@ -4784,7 +4796,8 @@ release/artificial.o: ../TankWar/gameExecutor/artificial.cpp ../TankWar/gameExec
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QPoint \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QList \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRandomGenerator \
-		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\artificial.o ..\TankWar\gameExecutor\artificial.cpp
 
 release/gamestatepusher.o: ../TankWar/gameExecutor/gamestatepusher.cpp ../TankWar/gameExecutor/gamestatepusher.h \
@@ -4916,7 +4929,8 @@ release/gamestatepusher.o: ../TankWar/gameExecutor/gamestatepusher.cpp ../TankWa
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QList \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRandomGenerator \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
-		../TankWar/gameExecutor/artificial.h
+		../TankWar/gameExecutor/artificial.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\gamestatepusher.o ..\TankWar\gameExecutor\gamestatepusher.cpp
 
 release/main.o: ../TankWar/main.cpp ../TankWar/widget.h \
@@ -5097,6 +5111,15 @@ release/main.o: ../TankWar/main.cpp ../TankWar/widget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
 		../TankWar/spinslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QApplication \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qapplication.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
@@ -5250,6 +5273,7 @@ release/mapstruct.o: ../TankWar/mapStructAndData/mapstruct.cpp ../TankWar/mapStr
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
 		../TankWar/playwidget.h \
 		../TankWar/gameExecutor/artificial.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -5270,7 +5294,6 @@ release/mapstruct.o: ../TankWar/mapStructAndData/mapstruct.cpp ../TankWar/mapStr
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QSize \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
@@ -5776,6 +5799,7 @@ release/playwidget.o: ../TankWar/playwidget.cpp ../TankWar/playwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRandomGenerator \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrandom.h \
 		../TankWar/gameExecutor/artificial.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -5796,7 +5820,6 @@ release/playwidget.o: ../TankWar/playwidget.cpp ../TankWar/playwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QRect \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QSize \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
@@ -5824,6 +5847,15 @@ release/playwidget.o: ../TankWar/playwidget.cpp ../TankWar/playwidget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtMultimedia/qtmultimedia-config.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtMultimedia/qaudio.h \
 		../TankWar/spinslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
 		../TankWar/gameExecutor/gamestatepusher.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\playwidget.o ..\TankWar\playwidget.cpp
 
@@ -5957,9 +5989,47 @@ release/spinslider.o: ../TankWar/spinslider.cpp ../TankWar/spinslider.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
 		ui_spinslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QVariant \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QApplication \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qapplication.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qfuture.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qfutureinterface.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qmutex.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qresultstore.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qfuture_impl.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qthreadpool.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qthread.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qdeadlinetimer.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qelapsedtimer.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrunnable.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qexception.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qapplicationpermission.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qinputmethod.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication_platform.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QSlider \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QSpinBox \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qspinbox.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
-		../../../../Qt/6.2.0/mingw81_64/include/QtGui/QIcon \
-		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qicon.h
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/QIcon
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\spinslider.o ..\TankWar\spinslider.cpp
 
 release/enemytank.o: ../TankWar/tankKinds/enemytank.cpp ../TankWar/tankKinds/enemytank.h \
@@ -7099,10 +7169,49 @@ release/widget.o: ../TankWar/widget.cpp ../TankWar/widget.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
 		../TankWar/spinslider.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
 		ui_widget.h \
-		../TankWar/gameExecutor/gamestatepusher.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/QVariant \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QApplication \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qapplication.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qfuture.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qfutureinterface.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qmutex.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qresultstore.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qfuture_impl.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qthreadpool.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qthread.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qdeadlinetimer.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qelapsedtimer.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qrunnable.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qexception.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qapplicationpermission.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qinputmethod.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
 		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QStackedWidget \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/qstackedwidget.h \
+		../../../../Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
+		../TankWar/gameExecutor/gamestatepusher.h \
 		../../../../Qt/6.2.0/mingw81_64/include/QtGui/QColor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\widget.o ..\TankWar\widget.cpp
 

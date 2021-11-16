@@ -4,13 +4,14 @@
 
 PlayWidget* PlayWidget::instance = nullptr;
 
-PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QWidget *parent)
+PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QString playerName, QWidget *parent)
     :QWidget(parent)
 {
 
-    playMode = _playMode;   //设定属性
-    soundLevel = _soundLevel;
-    difficultyLevel = _difficultyLevel;
+    this->playMode = _playMode;   //设定属性
+    this->soundLevel = _soundLevel;
+    this->difficultyLevel = _difficultyLevel;
+    this->playerName = playerName;
     gameLevel = 1;  //从第一关开始打
 
     this->setFixedSize(1456,900);    //固定窗口大小
@@ -40,9 +41,9 @@ PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QWi
     });   //延迟0.5秒后开始游戏
 }
 
-PlayWidget *PlayWidget::getInstance(int _playMode, int _soundLevel, int _difficultyLevel, QWidget *parent)
+PlayWidget *PlayWidget::getInstance(int _playMode, int _soundLevel, int _difficultyLevel, QString playerName, QWidget *parent)
 {
-    instance = new PlayWidget(_playMode,_soundLevel,_difficultyLevel,parent);
+    instance = new PlayWidget(_playMode,_soundLevel,_difficultyLevel,playerName,parent);
     return instance;
 }
 
@@ -82,6 +83,11 @@ void PlayWidget::startGame()
         endGame();
         qDebug()<<"PlayWidget响应了来自GameStatePusher的游戏失败信号，结束游戏成功";
     });
+}
+
+QString PlayWidget::getPlayerName()
+{
+    return playerName;
 }
 
 PlayWidget::~PlayWidget()

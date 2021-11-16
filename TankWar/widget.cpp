@@ -35,7 +35,7 @@ Widget::Widget(QWidget *parent) //开始游戏界面
         else playMode = doublePlayer;
 
         //根据游戏模式，音量，难度创建游戏界面
-        playWidget = PlayWidget::getInstance(playMode,soundSlider->getValue(),hardSlider->getValue());
+        playWidget = PlayWidget::getInstance(playMode,soundSlider->getValue(),hardSlider->getValue(),playerName->text());
 
         connect(playWidget,&PlayWidget::sceneClose,this,[=](){   //游戏窗口关闭时清除内存，恢复空指针
             disconnect(playWidget,&PlayWidget::sceneClose,this,nullptr);
@@ -81,6 +81,28 @@ Widget::Widget(QWidget *parent) //开始游戏界面
     hardSlider->setToolTip("难度");
     hardSlider->setMaxValue(3);
     hardSlider->setMinValue(1);     //设置难度范围为1~3
+
+    //创建玩家姓名提示图片
+    playerNamePix = new QLabel(ui->page_1);
+    QPixmap pixmap(":/Resource/img/other/playerName.png");
+    pixmap = pixmap.scaled(140,50);
+    playerNamePix->resize(pixmap.width(),pixmap.height());
+    playerNamePix->setPixmap(pixmap);
+    playerNamePix->move((this->width()-playerNamePix->width())*0.5-175,450);
+
+    //创建玩家姓名单行文本框
+    QPalette palette;
+    palette.setColor(QPalette::Text, Qt::white);
+    playerName = new QLineEdit(ui->page_1);
+    playerName->setFont(QFont("微软雅黑", 20, QFont::Bold));
+    playerName->setPalette(palette);
+    playerName->setPlaceholderText("请输入玩家姓名");
+    playerName->setText("Luoky");
+    playerName->setEchoMode(QLineEdit::Normal);
+    playerName->resize(300, 50);
+    playerName->setStyleSheet("padding: -1");
+    playerName->setStyleSheet("background-color:rgba(0,0,0,0);");
+    playerName->move((this->width()-playerName->width())*0.5+50,450);
 
     //创建返回按键
     btn_back = new MyButton(":/Resource/img/other/backBtn.png","",ui->page_1);
