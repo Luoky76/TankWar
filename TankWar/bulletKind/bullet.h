@@ -11,6 +11,9 @@ class Bullet : public VisibleObject
 public:
     const static int bulletWidth = 30;  //子弹的默认宽高
     const static int bulletHeight = 30;
+    const static int friendSign = 0;    //子弹不同敌我关系，己方、敌方、中立方（与坦克一致）
+    const static int enemySign = 1;
+    const static int individualSign = 2;
     const static int up = 0;    //子弹的不同朝向
     const static int right = 1;
     const static int down = 2;
@@ -21,6 +24,8 @@ public:
     void blast();   //无条件引爆子弹
     void setMoveTime(int newMoveTime);
     void setIcon(QString newIconPath);
+    int getDamage();
+    int getIdentity();
 
 protected:
     int identity;     //敌我标记

@@ -58,7 +58,8 @@ bool VisibleObject::isCrashed(QRect obj2)
 
 void VisibleObject::paintObj(int dx, int dy, QPainter *painter)
 {
-    QPixmap pixmap(iconPath);
+    QPixmap pixmap;
+    if (!pixmap.load(iconPath)) return;
     pixmap = pixmap.scaled(objWidth,objHeight);
     painter->drawPixmap(dx+posX,dy+posY,pixmap);
 }

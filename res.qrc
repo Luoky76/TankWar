@@ -94,5 +94,6 @@
         <file>Resource/img/wall/redwall.png</file>
         <file>Resource/music/button.wav</file>
         <file>Resource/img/wall/base.png</file>
+        <file>Resource/playerName.in</file>
     </qresource>
 </RCC>

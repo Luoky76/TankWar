@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPainter>
 #include <QPixmap>
+#include <QDebug>
 
 class VisibleObject : public QObject    //可见物件类
 {

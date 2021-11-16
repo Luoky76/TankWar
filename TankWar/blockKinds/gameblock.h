@@ -7,7 +7,7 @@ class GameBlock:public VisibleObject
 {
     Q_OBJECT
 public:
-    const static int base = 0;  //用数字指代不同地形块的类型
+    //用数字指代不同地形块的类型
     const static int floor = 1;
     const static int wall = 2;
     const static int steel = 3;
@@ -17,8 +17,6 @@ public:
 
     const static int blockWidth = 30;   //地图块的默认宽高，单位像素
     const static int blockHeight = 30;
-    const static int baseWidth = 60;    //基地块的宽高
-    const static int baseHeight = 60;
 
     static GameBlock *gameBlockCreator(int blockKind,int _posX,int _posY,QObject *parent);  //地形块创建工厂
 
@@ -28,7 +26,9 @@ public:
     double getSpeed();
     int getIsUponTank();
     int getTransformBlock();
+    int getScore();
     void blast();   //无条件引爆方块并发出毁灭请求
+    ~GameBlock();
 
 protected:
     bool canTankThrough;    //坦克能否通过
@@ -37,6 +37,7 @@ protected:
     bool isUponTank;    //能否覆盖坦克
     double speed;   //坦克在上面行驶的速度倍数
     int transformBlock;//破坏后变成的新方块
+    int score;  //破坏后的得分
 
     QTimer *blastTimer; //计时器，用于爆炸动画
     int from;   //记录爆炸图片的起始编号-1

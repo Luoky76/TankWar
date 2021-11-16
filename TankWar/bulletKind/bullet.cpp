@@ -1,5 +1,4 @@
 #include "bullet.h"
-#include "gameparameter.h"
 #include <QTimer>
 #include <QDebug>
 #include <QPixmap>
@@ -55,6 +54,7 @@ void Bullet::bulletMove(int toPosX, int toPosY)
 
 void Bullet::blast()
 {
+    timer->stop();  //爆炸时子弹无法继续移动
     from = 0;
     to = 9;
     blastTimer->start(30);
@@ -69,4 +69,14 @@ void Bullet::setMoveTime(int newMoveTime)
 void Bullet::setIcon(QString newIconPath)
 {
     iconPath = newIconPath;
+}
+
+int Bullet::getDamage()
+{
+    return damage;
+}
+
+int Bullet::getIdentity()
+{
+    return identity;
 }

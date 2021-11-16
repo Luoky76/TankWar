@@ -9,4 +9,5 @@ Redwall::Redwall(int _posX,int _posY,QObject *parent) : GameBlock(_posX,_posY,pa
     speed = 0;
     isUponTank = false;
     transformBlock = wall;
+    score = 200;    //破坏后奖励200分
 }

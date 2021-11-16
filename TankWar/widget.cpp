@@ -3,6 +3,7 @@
 #include "mybutton.h"
 #include "spinslider.h"
 #include "playwidget.h"
+#include "gameExecutor/gamestatepusher.h"
 #include <QCheckBox>
 #include <QTimer>
 #include <QIcon>
@@ -27,14 +28,18 @@ Widget::Widget(QWidget *parent) //开始游戏界面
     btn_start->move((this->width()-btn_start->width())*0.5,(this->height()-btn_start->height())*0.4);   //居中放置按钮
     btn_start->setToolTip("开始游戏");  //设置操作提示
     //btn_start->setSound(":/Resource/music/button.wav"); //设置按钮音效
-    connect(btn_start,&MyButton::clicked,[=](){ //按下按钮后创建并打开游戏界面
-        if (playWidget!=nullptr) return;    //若已创建过游戏界面，不再重复创建
+    connect(btn_start,&MyButton::clicked,this,[=](){ //按下按钮后创建并打开游戏界面
+        if (playWidget!=nullptr) return;    //若已创建过游戏界面，不再重复创建 
         int playMode;   //表示单双人模式
         if (ui->check_single->checkState()==Qt::Checked) playMode = singlePlayer;
         else playMode = doublePlayer;
-        playWidget = new PlayWidget(playMode,soundSlider->getValue(),hardSlider->getValue());   //根据游戏模式，音量，难度创建游戏界面
-        connect(playWidget,&PlayWidget::sceneClose,[=](){   //游戏窗口关闭时清除内存，恢复空指针
-            delete playWidget;
+
+        //根据游戏模式，音量，难度创建游戏界面
+        playWidget = PlayWidget::getInstance(playMode,soundSlider->getValue(),hardSlider->getValue());
+
+        connect(playWidget,&PlayWidget::sceneClose,this,[=](){   //游戏窗口关闭时清除内存，恢复空指针
+            disconnect(playWidget,&PlayWidget::sceneClose,this,nullptr);
+            //playWidget->deleteLater();
             playWidget = nullptr;
         });
         QTimer::singleShot(450,[=](){

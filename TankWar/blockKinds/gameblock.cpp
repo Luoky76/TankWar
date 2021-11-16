@@ -15,18 +15,11 @@ GameBlock::GameBlock(int _posX,int _posY,QObject *parent):VisibleObject(parent)
     objHeight = blockHeight;
 
     blastTimer = new QTimer(this);
-    connect(blastTimer,&QTimer::timeout,[=](){  //实现子弹的爆炸动画
-        ++from;
-        if (from<=to)
-        {
-            iconPath = QString(":/Resource/img/fire/%1.png").arg(from);
-        }
-        else
-        {
-            blastTimer->stop();
-            emit newBlock(this);
-        }
-    });
+}
+
+GameBlock::~GameBlock()
+{
+    this->disconnect();
 }
 
 GameBlock *GameBlock::gameBlockCreator(int blockKind,int _posX,int _posY,QObject *parent)
@@ -42,8 +35,6 @@ GameBlock *GameBlock::gameBlockCreator(int blockKind,int _posX,int _posY,QObject
             return (GameBlock *) new Steel(_posX,_posY,parent); break;
         case grass:
             return (GameBlock *) new Grass(_posX,_posY,parent); break;
-        case base:
-            return (GameBlock *) new Base(_posX,_posY,parent); break;
         case redwall:
             return (GameBlock *) new Redwall(_posX,_posY,parent); break;
         default:
@@ -59,6 +50,19 @@ void GameBlock::blast()
     to = 9;
     canBulletThrough = true;    //引爆过程中允许子弹通过
     blastTimer->start(30);
+    connect(blastTimer,&QTimer::timeout,this,[=](){  //实现子弹的爆炸动画
+        ++from;
+        if (from<=to)
+        {
+            iconPath = QString(":/Resource/img/fire/%1.png").arg(from);
+        }
+        else
+        {
+            blastTimer->stop();
+            disconnect(blastTimer,&QTimer::timeout,this,nullptr);
+            emit newBlock(this);
+        }
+    });
 }
 
 bool GameBlock::getCanTankThrough()
@@ -89,4 +93,9 @@ int GameBlock::getIsUponTank()
 int GameBlock::getTransformBlock()
 {
     return transformBlock;
+}
+
+int GameBlock::getScore()
+{
+    return score;
 }

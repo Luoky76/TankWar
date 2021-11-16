@@ -19,10 +19,13 @@ SOURCES += \
     blockKinds/wall.cpp \
     blockKinds/water.cpp \
     bulletKind/bullet.cpp \
+    gameExecutor/artificial.cpp \
+    gameExecutor/gamestatepusher.cpp \
     main.cpp \
     mapStructAndData/mapstruct.cpp \
     mapStructAndData/mapdatabase.cpp \
     mybutton.cpp \
+    namebox.cpp \
     playwidget.cpp \
     spinslider.cpp \
     tankKinds/enemytank.cpp \
@@ -45,9 +48,12 @@ HEADERS += \
     blockKinds/wall.h \
     blockKinds/water.h \
     bulletKind/bullet.h \
+    gameExecutor/artificial.h \
+    gameExecutor/gamestatepusher.h \
     mapStructAndData/mapstruct.h \
     mapStructAndData/mapdatabase.h \
     mybutton.h \
+    namebox.h \
     playwidget.h \
     spinslider.h \
     tankKinds/enemytank.h \

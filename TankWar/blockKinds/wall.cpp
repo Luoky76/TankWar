@@ -9,4 +9,5 @@ Wall::Wall(int _posX,int _posY,QObject *parent):GameBlock(_posX,_posY,parent)
     speed = 0;
     isUponTank = false;
     transformBlock = floor;
+    score = 100;    //破坏后奖励100分
 }

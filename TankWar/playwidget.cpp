@@ -1,25 +1,17 @@
 #include "playwidget.h"
-#include "tankKinds/friendtank.h"
-#include "tankKinds/enemytank.h"
-#include "tankKinds/heavytank.h"
-#include "blockKinds/gameblock.h"
-#include "bulletKind/bullet.h"
-#include <QDebug>
-#include <QIcon>
-#include <QVector>
-#include <QPainter>
-#include <QKeyEvent>
-#include <QTimer>
+#include "widget.h"
+#include "gameExecutor/gamestatepusher.h"
+
+PlayWidget* PlayWidget::instance = nullptr;
 
 PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QWidget *parent)
     :QWidget(parent)
 {
+
     playMode = _playMode;   //设定属性
     soundLevel = _soundLevel;
     difficultyLevel = _difficultyLevel;
-    gameLevel = 3;  //从第一关开始打
-    MapStruct::getInstance(&gmp,&tanks,&bullets,this)->setGameLevel(gameLevel);
-    MapStruct::getInstance()->setDifficulty(difficultyLevel);
+    gameLevel = 1;  //从第一关开始打
 
     this->setFixedSize(1456,900);    //固定窗口大小
     this->setWindowIcon(QIcon(":/Resource/img/other/mintank.png"));    //设置图标
@@ -37,8 +29,69 @@ PlayWidget::PlayWidget(int _playMode, int _soundLevel, int _difficultyLevel, QWi
 
     numOfKey = 0;
     timer = new QTimer();
+    connect(timer,&QTimer::timeout,this,[=](){  //每当计时结束发送移动按键的信号
+        emit pressToMove(currentKey);
+    });
 
-    creatPlayerTank();
+    QTimer::singleShot(500,[=](){
+        MapStruct::getInstance(&gmp,&tanks,&bullets,&base,this);
+        Artificial::getInstance(&tanks,this);
+        startGame();
+    });   //延迟0.5秒后开始游戏
+}
+
+PlayWidget *PlayWidget::getInstance(int _playMode, int _soundLevel, int _difficultyLevel, QWidget *parent)
+{
+    instance = new PlayWidget(_playMode,_soundLevel,_difficultyLevel,parent);
+    return instance;
+}
+
+PlayWidget *PlayWidget::getInstance()
+{
+    return instance;
+}
+
+void PlayWidget::startGame()
+{
+    MapStruct::getInstance()->setGameLevel(gameLevel);
+    MapStruct::getInstance()->setDifficulty(difficultyLevel);
+    GameStatePusher::getInstance()->setMaxEnemyCnt(19+gameLevel);   //每关多一个敌人
+    //GameStatePusher::getInstance()->setMaxEnemyCnt(1+gameLevel);
+    //设置是否有伙伴坦克
+    if (this->playMode==Widget::doublePlayer)
+    {
+        GameStatePusher::getInstance()->setFriend(true);
+    }
+    else
+    {
+        GameStatePusher::getInstance()->setFriend(false);
+    }
+    GameStatePusher::getInstance()->startGame();
+
+    connect(GameStatePusher::getInstance(),&GameStatePusher::gameWin,this,[=](){ //游戏胜利时进入下一关
+        ++gameLevel;
+        qDebug()<<"current gameLevel is "<<gameLevel;
+        if (gameLevel>MapDataBase::totLevel) gameLevel = 1;
+        disconnect(GameStatePusher::getInstance(),&GameStatePusher::gameWin,this,nullptr);
+        startGame();
+    });
+
+    connect(GameStatePusher::getInstance(),&GameStatePusher::gameLose,this,[=](){ //游戏失败时，待定
+        qDebug()<<"PlayWidget收到了来自GameStatePusher的游戏失败信号，准备结束游戏";  
+        disconnect(GameStatePusher::getInstance(),&GameStatePusher::gameLose,this,nullptr);
+        endGame();
+        qDebug()<<"PlayWidget响应了来自GameStatePusher的游戏失败信号，结束游戏成功";
+    });
+}
+
+PlayWidget::~PlayWidget()
+{
+    instance = nullptr;
+    timer->stop();
+    timer->deleteLater();
+    repaintTimer->stop();
+    repaintTimer->deleteLater();
+    this->disconnect();
 }
 
 void PlayWidget::closeEvent(QCloseEvent *)
@@ -62,20 +115,18 @@ void PlayWidget::paintEvent(QPaintEvent *)
             else gmp[i][j]->paintObj(upLeftX,upLeftY,QString(":/Resource/img/wall/floor.png"),&painter);
         }
     }
-
     //绘制坦克
     for (Tank* i:tanks)
     {
         i->paintObj(upLeftX,upLeftY,&painter);
     }
-
     //绘制子弹
     for (Bullet* i:bullets)
     {
         i->paintObj(upLeftX,upLeftY,&painter);
     }
 
-    //绘制浮空地图块和基地
+    //绘制浮空地图块
     for (int i=0;i<gmp.count();++i)
     {
         for (int j=0;j<gmp[i].count();++j)
@@ -85,6 +136,12 @@ void PlayWidget::paintEvent(QPaintEvent *)
                 gmp[i][j]->paintObj(upLeftX,upLeftY,&painter);
             }
         }
+    }
+
+    //绘制基地
+    if (base!=nullptr)
+    {
+        base->paintObj(upLeftX,upLeftY,&painter);
     }
 }
 
@@ -122,13 +179,12 @@ void PlayWidget::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void PlayWidget::creatPlayerTank()
+void PlayWidget::endGame()
 {
-    //创建玩家的坦克
-    PlayerTank* myTank = MapStruct::getInstance()->creatPlayerTank();
-    connect(timer,&QTimer::timeout,[=](){   //计时器一到就发送当前按住的按键给自己的坦克
-       myTank->keyPressToMove(currentKey);
-    });
-    connect(this,&PlayWidget::pressToShoot,myTank,&PlayerTank::shoot);
-    connect(myTank,&PlayerTank::tankShot,MapStruct::getInstance(),&MapStruct::newBullet);
+    //断开与按键信号连接的槽，不再允许玩家对坦克操作
+    disconnect(this,&PlayWidget::pressToShoot,0,0);
+    disconnect(this,&PlayWidget::pressToMove,0,0);
+    //repaintTimer->stop();   //停止重绘
+    QMessageBox::information(this, "提示","   游戏结束   ");
+    this->close();
 }
