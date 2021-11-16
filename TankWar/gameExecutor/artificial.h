@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QRandomGenerator>
 #include <QTimer>
+#include <QRect>
 
 class Artificial : public QObject
 {
@@ -28,6 +29,7 @@ private:
     void emitEnemyCommand();
     void emitFriendCommand();
     void setEplison();
+    bool canFriendShoot(Tank* tank);  //判断友方坦克能否射击
     QTimer* timer;  //发送命令计时器
 
 signals:

@@ -33,6 +33,11 @@ QPoint MapStruct::getBasePos()
     return basePos;
 }
 
+QRect MapStruct::getBaseRect()
+{
+    return QRect((*base)->getPosX(),(*base)->getPosY(),(*base)->width(),(*base)->height());
+}
+
 QPoint MapStruct::getP1BornPos()
 {
     return p1BornPos;

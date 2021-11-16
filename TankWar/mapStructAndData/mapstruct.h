@@ -27,6 +27,7 @@ public:
     static MapStruct* getInstance();
 
     QPoint getBasePos();    //获取基地位置
+    QRect getBaseRect();    //获取基地矩形
     QPoint getP1BornPos();  //获取玩家P1的出生点
     QPoint getP2BornPos();  //获取玩家P2的出生点
     void setP1BornPos(QPoint pos);  //设置玩家的出生点

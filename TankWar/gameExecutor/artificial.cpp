@@ -134,7 +134,7 @@ void Artificial::emitFriendCommand()
             default:
                 break;
             }
-            i->tryToShoot();
+            if (canFriendShoot(i)) i->tryToShoot();
         }
     }
 }
@@ -157,4 +157,38 @@ void Artificial::setEplison()
     }
     eplisonStay = 50;
     eplisonForward = 80;
+}
+
+bool Artificial::canFriendShoot(Tank *tank)
+{
+    QRect basePos = MapStruct::getInstance()->getBaseRect();
+    if (tank->getForward() == Tank::up)
+    {
+        if (basePos.x()<tank->getPosX()+tank->width() && basePos.x()+basePos.width()>tank->getPosX())   //坦克和基地在列上相交
+        {
+            if (basePos.y()<tank->getPosY()) return false;  //基地在坦克上方
+        }
+    }
+    if (tank->getForward() == Tank::down)
+    {
+        if (basePos.x()<tank->getPosX()+tank->width() && basePos.x()+basePos.width()>tank->getPosX())   //坦克和基地在列上相交
+        {
+            if (basePos.y()>tank->getPosY()) return false;  //基地在坦克下方
+        }
+    }
+    if (tank->getForward() == Tank::right)
+    {
+        if (basePos.y()<tank->getPosY()+tank->height() && basePos.y()+basePos.height()>tank->getPosY())   //坦克和基地在行上相交
+        {
+            if (basePos.x()>tank->getPosX()) return false;  //基地在坦克右方
+        }
+    }
+    if (tank->getForward() == Tank::left)
+    {
+        if (basePos.y()<tank->getPosY()+tank->height() && basePos.y()+basePos.height()>tank->getPosY())   //坦克和基地在行上相交
+        {
+            if (basePos.x()<tank->getPosX()) return false;  //基地在坦克左方
+        }
+    }
+    return true;
 }

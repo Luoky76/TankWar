@@ -30,7 +30,7 @@ void GameStatePusher::startGame()
     generatePlayerTank();   //创建玩家坦克
     if (hasFriend)
     {
-        friendLives = 1;    //给伙伴1条命
+        friendLives = 3;    //给伙伴3条命
         generateFriendTank();   //创建伙伴坦克
     }
 
